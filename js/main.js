@@ -102,8 +102,8 @@ function createComments() {
       MIN_NUMBER_AVATAR,
       MAX_NUMBER_AVATAR
     )}.svg`,
-    message: messageComments[getRandomArrayElement(messageComments)],
-    name: nameAuthorComments[getRandomArrayElement(nameAuthorComments)],
+    message: getRandomArrayElement(messageComments),
+    name: getRandomArrayElement(nameAuthorComments),
   };
 }
 
