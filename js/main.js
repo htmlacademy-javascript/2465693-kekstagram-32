@@ -24,7 +24,7 @@ const descriptionPhoto = [
   'теплые тапочки',
   'пролетая над горами',
   'на концерте',
-  'Шеврале Импала 1964 года выпуска',
+  'Шевроле Импала 1964 года выпуска',
   'тапочки с подсветкой',
   'фото вечернего отеля',
   'Као пад с курицей ',
@@ -140,3 +140,6 @@ const createArrayPhotos = Array.from(
   { length: NUMBERS_OF_PHOTOS },
   createPhotoId
 );
+
+// eslint-disable-next-line no-console
+console.log(createArrayPhotos);
