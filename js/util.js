@@ -28,6 +28,4 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-export { createIdGenerator };
-export { getRandomInteger };
-export { createRandomIdFromRangeGenerator };
+export { createIdGenerator, getRandomInteger, createRandomIdFromRangeGenerator };
