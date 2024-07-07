@@ -71,6 +71,7 @@ const nameAuthorComments = [
   'Неопознаный Енот',
 ];
 
+import { createIdGenerator } from './util.js';
 import { getRandomInteger } from './util.js';
 import { createRandomIdFromRangeGenerator } from './util.js';
 
@@ -87,12 +88,17 @@ const createComments = () => ({
   name: getRandomArrayElement(nameAuthorComments),
 });
 
-const createPhotoId = (index) => ({
-  id: index,
-  url: `photos/${index}.jpg`,
-  description: descriptionPhotos[index - 1],
-  likes: getRandomInteger(COUNTS_LIKES.MIN, COUNTS_LIKES.MAX),
-  comments: Array.from({ length: getRandomInteger(COUNTS_COMMENTS.MIN, COUNTS_COMMENTS.MAX) }, createComments),
-});
+const generatePhotoId = createIdGenerator();
+
+const createPhotoId = () => {
+  const PhotoId = generatePhotoId();
+  return {
+    id: PhotoId,
+    url: `photos/${PhotoId}.jpg`,
+    description: descriptionPhotos[PhotoId - 1],
+    likes: getRandomInteger(COUNTS_LIKES.MIN, COUNTS_LIKES.MAX),
+    comments: Array.from({ length: getRandomInteger(COUNTS_COMMENTS.MIN, COUNTS_COMMENTS.MAX) }, createComments),
+  };
+};
 
 export { createPhotoId };

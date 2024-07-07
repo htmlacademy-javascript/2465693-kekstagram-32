@@ -1,3 +1,12 @@
+const createIdGenerator = () => {
+  let lastGeneratedId = 0;
+
+  return function () {
+    lastGeneratedId += 1;
+    return lastGeneratedId;
+  };
+};
+
 const getRandomInteger = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -19,5 +28,6 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
+export { createIdGenerator };
 export { getRandomInteger };
 export { createRandomIdFromRangeGenerator };
