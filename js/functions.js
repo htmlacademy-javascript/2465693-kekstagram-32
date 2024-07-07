@@ -16,7 +16,7 @@ checkLengthString('проверяемая строка', 10); // false
 const checkPalindrom = (string) => {
   const cleanString = string.replaceAll(' ', '').toLowerCase('');
   let reverseString = '';
-  for (let i = cleanString.length - 1; i >= 0; i--){
+  for (let i = cleanString.length - 1; i >= 0; i--) {
     reverseString += cleanString[i];
   }
   return reverseString === cleanString;
@@ -31,7 +31,7 @@ checkPalindrom('Кекс'); // false
 
 //3 дополнительное задание: извлечение чисел
 
-function extractNumber (string) {
+function extractNumber(string) {
   let number = '';
   string = string.toString();
   for (let i = 0; i <= string.length - 1; i++) {
@@ -39,7 +39,7 @@ function extractNumber (string) {
       number += string[i];
     }
   }
-  return(parseInt(number, 10));
+  return parseInt(number, 10);
 }
 
 extractNumber('2023 год'); // 2023
@@ -48,7 +48,7 @@ extractNumber('1 кефир, 0.5 батона'); // 105
 extractNumber('агент 007'); // 7
 extractNumber('а я томат'); // NaN
 
-//случай, когда вместо строки приходит число.
+//тот случай, когда вместо строки приходит число.
 
 extractNumber(2023); // 2023
 extractNumber(-1); // 1
