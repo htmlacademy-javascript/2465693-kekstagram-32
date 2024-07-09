@@ -65,11 +65,7 @@ const getMinutes = (time) => {
 };
 
 const planer = (start, end, meeting, durat) => {
-  if (getMinutes(meeting) < getMinutes(start)) {
-    return false;
-  }
-
-  if (getMinutes(meeting) + parseInt(durat, 10) > getMinutes(end)) {
+  if (getMinutes(meeting) < getMinutes(start) || getMinutes(meeting) + parseInt(durat, 10) > getMinutes(end)) {
     return false;
   } else {
     return true;
