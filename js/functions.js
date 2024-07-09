@@ -56,35 +56,28 @@ extractNumber(1.5); // 15
 
 //Практическое зхадание №5
 
-const dayStart = '08:0';
-const dayEnd = '17:30';
-const startMeeting = '08:00';
-const duration = '90';
-
 const getMinutes = (time) => {
-  const result = time.split(':');
-  const resultInteger = [];
-  let minutes = 0;
-  for (let i = 0; i <= result.length - 1; i++) {
-    resultInteger[i] = parseInt(result[i], 10);
-  }
-  if (resultInteger[1] === 0) {
-    minutes = resultInteger[0] * 60;
-  } else {
-    minutes = resultInteger[0] * 60 + resultInteger[1];
-  }
-  return minutes;
+  const hours = parseInt(time.split(':')[0], 10);
+  const minutes = parseInt(time.split(':')[1], 10);
+  const minutesInHours = 60;
+
+  return hours * minutesInHours + minutes;
 };
 
 const planer = (start, end, meeting, durat) => {
-  const durationMeeting = getMinutes(end) - getMinutes(meeting) - parseInt(durat, 10);
-  const meetingEarlier = getMinutes(meeting) - getMinutes(start);
-  if (durationMeeting > 0 || meetingEarlier > 0) {
-    return true;
-  } else {
+  if (getMinutes(meeting) < getMinutes(start)) {
     return false;
+  }
+
+  if (getMinutes(meeting) + parseInt(durat, 10) > getMinutes(end)) {
+    return false;
+  } else {
+    return true;
   }
 };
 
-// eslint-disable-next-line no-console
-console.log(planer(dayStart, dayEnd, startMeeting, duration));
+console.log(planer('08:00', '17:30', '14:00', 90)); // true
+console.log(planer('8:0', '10:0', '8:0', 120)); // true
+console.log(planer('08:00', '14:30', '14:00', 90)); // false
+console.log(planer('14:00', '17:30', '08:0', 90)); // false
+console.log(planer('8:00', '17:30', '08:00', 900)); // false
