@@ -72,8 +72,13 @@ const planer = (start, end, meeting, durat) => {
   }
 };
 
+// eslint-disable-next-line no-console
 console.log(planer('08:00', '17:30', '14:00', 90)); // true
+// eslint-disable-next-line no-console
 console.log(planer('8:0', '10:0', '8:0', 120)); // true
+// eslint-disable-next-line no-console
 console.log(planer('08:00', '14:30', '14:00', 90)); // false
+// eslint-disable-next-line no-console
 console.log(planer('14:00', '17:30', '08:0', 90)); // false
+// eslint-disable-next-line no-console
 console.log(planer('8:00', '17:30', '08:00', 900)); // false
