@@ -14,3 +14,23 @@ globals:
 
 extends:
   "htmlacademy/vanilla"
+
+plugins:
+  - import
+
+rules:
+  sort-imports:
+    - error
+    - ignoreCase: true
+      ignoreDeclarationSort: true
+
+  import/order:
+    - error
+    - groups:
+      - builtin
+      - external
+      - internal
+      - parent
+      - sibling
+      - index
+      - object

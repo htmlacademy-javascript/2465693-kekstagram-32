@@ -1,4 +1,4 @@
-import { createIdGenerator, getRandomInteger, createRandomIdFromRangeGenerator } from './util.js';
+import { createIdGenerator, createRandomIdFromRangeGenerator, getRandomInteger } from './util.js';
 
 const numberAvatar = {
   MIN: 1,
