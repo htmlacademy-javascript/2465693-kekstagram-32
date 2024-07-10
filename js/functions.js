@@ -53,3 +53,32 @@ extractNumber('а я томат'); // NaN
 extractNumber(2023); // 2023
 extractNumber(-1); // 1
 extractNumber(1.5); // 15
+
+//Практическое зхадание №5
+
+const getMinutes = (time) => {
+  const hours = parseInt(time.split(':')[0], 10);
+  const minutes = parseInt(time.split(':')[1], 10);
+  const minutesInHours = 60;
+
+  return hours * minutesInHours + minutes;
+};
+
+const planer = (start, end, meeting, durat) => {
+  if (getMinutes(meeting) < getMinutes(start) || getMinutes(meeting) + parseInt(durat, 10) > getMinutes(end)) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+// eslint-disable-next-line no-console
+console.log(planer('08:00', '17:30', '14:00', 90)); // true
+// eslint-disable-next-line no-console
+console.log(planer('8:0', '10:0', '8:0', 120)); // true
+// eslint-disable-next-line no-console
+console.log(planer('08:00', '14:30', '14:00', 90)); // false
+// eslint-disable-next-line no-console
+console.log(planer('14:00', '17:30', '08:0', 90)); // false
+// eslint-disable-next-line no-console
+console.log(planer('8:00', '17:30', '08:00', 900)); // false
