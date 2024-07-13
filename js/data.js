@@ -1,21 +1,21 @@
 import { createIdGenerator, createRandomIdFromRangeGenerator, getRandomInteger } from './util.js';
 
-const numberAvatar = {
+const NumberAvatar = {
   MIN: 1,
   MAX: 6,
 };
 
-const countsLikes = {
+const CountsLikes = {
   MIN: 15,
   MAX: 30,
 };
 
-const countsComments = {
+const CountsComments = {
   MIN: 0,
   MAX: 30,
 };
 
-const countsMessage = {
+const CountsMessage = {
   MIN: 1,
   MAX: 2,
 };
