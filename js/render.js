@@ -4,13 +4,13 @@ const container = document.querySelector('.pictures');
 const photoFragmentBox = document.createDocumentFragment();
 
 const createPhoto = (picture) => {
-  const photo = pictureTemplate.cloneNode(true);
-  photo.querySelector('.picture__img').src = picture.url;
-  photo.querySelector('.picture__img').alt = picture.description;
-  photo.querySelector('.picture__likes').textContent = picture.likes;
-  photo.querySelector('.picture__comments').textContent = picture.comments.length;
+  const photoElement = pictureTemplate.cloneNode(true);
+  photoElement.querySelector('.picture__img').src = picture.url;
+  photoElement.querySelector('.picture__img').alt = picture.description;
+  photoElement.querySelector('.picture__likes').textContent = picture.likes;
+  photoElement.querySelector('.picture__comments').textContent = picture.comments.length;
 
-  return photo;
+  return photoElement;
 };
 
 const renderingPicture = (arrayPictures) => {
