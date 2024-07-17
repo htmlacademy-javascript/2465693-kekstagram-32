@@ -14,9 +14,11 @@ const createPhoto = (picture) => {
 };
 
 const renderingPicture = (arrayPictures) => {
-  for (let i = 0; i < arrayPictures.length; i++) {
-    photosElement.append(createPhoto(arrayPictures[i]));
-  }
+  arrayPictures.forEach((picture) => {
+    const photoElement = createPhoto(picture);
+    photosElement.append(photoElement);
+  });
+
   container.append(photosElement);
 };
 
