@@ -1,7 +1,7 @@
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
-const photoFragmentBox = document.createDocumentFragment();
+const photosElement = document.createDocumentFragment();
 
 const createPhoto = (picture) => {
   const photoElement = pictureTemplate.cloneNode(true);
@@ -15,9 +15,9 @@ const createPhoto = (picture) => {
 
 const renderingPicture = (arrayPictures) => {
   for (let i = 0; i < arrayPictures.length; i++) {
-    photoFragmentBox.append(createPhoto(arrayPictures[i]));
+    photosElement.append(createPhoto(arrayPictures[i]));
   }
-  container.append(photoFragmentBox);
+  container.append(photosElement);
 };
 
 export { renderingPicture };
