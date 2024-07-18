@@ -1,8 +1,4 @@
-import { createPhotoId } from './data.js';
+import { createArrayPhotos } from './data.js';
+import { renderingPicture } from './render.js';
 
-const NUMBERS_OF_PHOTOS = 25;
-
-const createArrayPhotos = Array.from({ length: NUMBERS_OF_PHOTOS }, createPhotoId);
-
-// eslint-disable-next-line no-console
-console.log(createArrayPhotos);
+renderingPicture(createArrayPhotos());

@@ -1,21 +1,23 @@
-import { createIdGenerator, getRandomInteger, createRandomIdFromRangeGenerator } from './util.js';
+import { createIdGenerator, createRandomIdFromRangeGenerator, getRandomInteger } from './util.js';
 
-const numberAvatar = {
+const NUMBERS_OF_PHOTOS = 25;
+
+const NumberAvatar = {
   MIN: 1,
   MAX: 6,
 };
 
-const countsLikes = {
+const CountsLikes = {
   MIN: 15,
   MAX: 30,
 };
 
-const countsComments = {
+const CountsComments = {
   MIN: 0,
   MAX: 30,
 };
 
-const countsMessage = {
+const CountsMessage = {
   MIN: 1,
   MAX: 2,
 };
@@ -81,8 +83,8 @@ const createMessage = () => getRandomArrayElement(messageComments);
 
 const createComments = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${getRandomInteger(numberAvatar.MIN, numberAvatar.MAX)}.svg`,
-  message: Array.from({ length: getRandomInteger(countsMessage.MIN, countsMessage.MAX) }, createMessage),
+  avatar: `img/avatar-${getRandomInteger(NumberAvatar.MIN, NumberAvatar.MAX)}.svg`,
+  message: Array.from({ length: getRandomInteger(CountsMessage.MIN, CountsMessage.MAX) }, createMessage),
   name: getRandomArrayElement(nameAuthorComments),
 });
 
@@ -94,9 +96,11 @@ const createPhotoId = () => {
     id: PhotoId,
     url: `photos/${PhotoId}.jpg`,
     description: descriptionPhotos[PhotoId - 1],
-    likes: getRandomInteger(countsLikes.MIN, countsLikes.MAX),
-    comments: Array.from({ length: getRandomInteger(countsComments.MIN, countsComments.MAX) }, createComments),
+    likes: getRandomInteger(CountsLikes.MIN, CountsLikes.MAX),
+    comments: Array.from({ length: getRandomInteger(CountsComments.MIN, CountsComments.MAX) }, createComments),
   };
 };
 
-export { createPhotoId };
+const createArrayPhotos = () => Array.from({ length: NUMBERS_OF_PHOTOS }, createPhotoId);
+
+export { createArrayPhotos };
