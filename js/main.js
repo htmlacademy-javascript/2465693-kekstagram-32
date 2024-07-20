@@ -1,4 +1,5 @@
-import { createArrayPhotos } from './data.js';
+import { arrayPhotos } from './data.js';
 import { renderingPicture } from './render.js';
+import './full-photo-rendering.js';
 
-renderingPicture(createArrayPhotos());
+renderingPicture(arrayPhotos);
