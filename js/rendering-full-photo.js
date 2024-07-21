@@ -1,13 +1,13 @@
 import { isEscapeKey } from './util.js';
 import { arrayPhotos } from './data.js';
 
-const ContainerPhotoElements = document.querySelector('.pictures');
+const bodyElement = document.body;
 const bigPictureElement = document.querySelector('.big-picture');
 const bigPictureCloseElement = bigPictureElement.querySelector('.big-picture__cancel');
-const bodyElement = document.querySelector('body');
 const commentCountElements = document.querySelector('.social__comment-count');
-const commentLoaderElement = document.querySelector('.comments-loader');
 const commentListElements = document.querySelector('.social__comments');
+const commentLoaderElement = document.querySelector('.comments-loader');
+const containerPhotoElements = document.querySelector('.pictures');
 
 //закрытие по ESC
 const onDocumentEscKeydown = (evt) => {
@@ -38,8 +38,10 @@ const closeBigPhoto = () => {
 //создание одного комментария для списка
 const getComment = ({ avatar, name, message }) => {
   const comment = document.querySelector('.social__comment').cloneNode(true);
-  comment.querySelector('.social__picture').src = avatar;
-  comment.querySelector('.social__picture').alt = name;
+  const socialPicture = comment.querySelector('.social__picture');
+
+  socialPicture.src = avatar;
+  socialPicture.alt = name;
   comment.querySelector('.social__text').textContent = message;
   return comment;
 };
@@ -68,7 +70,7 @@ const getDataBigPhoto = (photoId) => {
   displayComments(arrayPhotos[photoId - 1].comments);
 };
 
-//функция
+//функция для отрисовки фото по выбранной миниатюре
 const onClickPhoto = (evt) => {
   if (evt.target.closest('.picture')) {
     const currentPhotoId = evt.target.dataset.photoId;
@@ -78,7 +80,7 @@ const onClickPhoto = (evt) => {
 };
 
 //обработчик по нажатию мышкой на миниатюру
-ContainerPhotoElements.addEventListener('click', onClickPhoto);
+containerPhotoElements.addEventListener('click', onClickPhoto);
 
 //обработчик по нажатию мышкой на закрытие окна
 bigPictureCloseElement.addEventListener('click', () => {
