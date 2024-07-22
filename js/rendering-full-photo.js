@@ -12,18 +12,10 @@ const renderBigPhoto = (arrayPhotos) => {
   commentCountElement.classList.add('hidden');
   commentLoaderElement.classList.add('hidden');
 
-  //открывает модальное окно
-  const openBigPhoto = () => {
-    bigPictureElement.classList.remove('hidden');
-    document.body.classList.add('modal-open');
-    document.addEventListener('keydown', onDocumentEscKeydown);
-  };
-
   //закрывает модальное окно
   const closeBigPhoto = () => {
     bigPictureElement.classList.add('hidden');
     document.body.classList.remove('modal-open');
-    document.removeEventListener('keydown', onDocumentEscKeydown);
   };
 
   //закрытие по ESC
@@ -31,7 +23,15 @@ const renderBigPhoto = (arrayPhotos) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       closeBigPhoto();
+      document.removeEventListener('keydown', onDocumentEscKeydown);
     }
+  };
+
+  //открывает модальное окно
+  const openBigPhoto = () => {
+    bigPictureElement.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    document.addEventListener('keydown', onDocumentEscKeydown);
   };
 
   //создание одного комментария для списка
