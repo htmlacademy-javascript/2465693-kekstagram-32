@@ -3,23 +3,14 @@ import { isEscapeKey } from './util.js';
 const renderBigPhoto = (arrayPhotos) => {
   const bigPictureElement = document.querySelector('.big-picture');
   const bigPictureCloseElement = bigPictureElement.querySelector('.big-picture__cancel');
-  const commentCountElements = document.querySelector('.social__comment-count');
-  const commentListElements = document.querySelector('.social__comments');
+  const commentCountElement = document.querySelector('.social__comment-count');
+  const commentListElement = document.querySelector('.social__comments');
+  const commentElement = document.querySelector('.social__comment');
   const commentLoaderElement = document.querySelector('.comments-loader');
-  const containerPhotoElements = document.querySelector('.pictures');
+  const containerPhotoElement = document.querySelector('.pictures');
 
-  commentCountElements.classList.add('hidden');
+  commentCountElement.classList.add('hidden');
   commentLoaderElement.classList.add('hidden');
-
-  //закрытие по ESC
-  const onDocumentEscKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      bigPictureElement.classList.add('hidden');
-      document.body.classList.remove('modal-open');
-      document.removeEventListener('keydown', onDocumentEscKeydown);
-    }
-  };
 
   //открывает модальное окно
   const openBigPhoto = () => {
@@ -35,14 +26,22 @@ const renderBigPhoto = (arrayPhotos) => {
     document.removeEventListener('keydown', onDocumentEscKeydown);
   };
 
+  //закрытие по ESC
+  const onDocumentEscKeydown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      closeBigPhoto();
+    }
+  };
+
   //создание одного комментария для списка
   const getComment = ({ avatar, name, message }) => {
-    const comment = document.querySelector('.social__comment').cloneNode(true);
+    const comment = commentElement.cloneNode(true);
     const socialPictureElement = comment.querySelector('.social__picture');
+
     socialPictureElement.src = avatar;
     socialPictureElement.alt = name;
     comment.querySelector('.social__text').textContent = message;
-
     return comment;
   };
 
@@ -53,8 +52,8 @@ const renderBigPhoto = (arrayPhotos) => {
       const newComment = getComment(element);
       commentsFragmentElement.append(newComment);
     });
-    commentListElements.innerHTML = '';
-    commentListElements.append(commentsFragmentElement);
+    commentListElement.innerHTML = '';
+    commentListElement.append(commentsFragmentElement);
   };
 
   //получаем данные для большого фото
@@ -80,7 +79,7 @@ const renderBigPhoto = (arrayPhotos) => {
   };
 
   //обработчик по нажатию мышкой на миниатюру
-  containerPhotoElements.addEventListener('click', onClickPhoto);
+  containerPhotoElement.addEventListener('click', onClickPhoto);
 
   //обработчик по нажатию мышкой на закрытие окна
   bigPictureCloseElement.addEventListener('click', () => {
