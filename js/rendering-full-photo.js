@@ -12,20 +12,20 @@ const renderBigPhoto = (arrayPhotos) => {
   commentCountElement.classList.add('hidden');
   commentLoaderElement.classList.add('hidden');
 
-  //закрывает модальное окно
-  const closeBigPhoto = () => {
-    bigPictureElement.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-  };
-
   //закрытие по ESC
   const onDocumentEscKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       closeBigPhoto();
-      document.removeEventListener('keydown', onDocumentEscKeydown);
     }
   };
+
+  //закрывает модальное окно
+  function closeBigPhoto() {
+    bigPictureElement.classList.add('hidden');
+    document.body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onDocumentEscKeydown);
+  }
 
   //открывает модальное окно
   const openBigPhoto = () => {
