@@ -102,5 +102,5 @@ const createPhotoId = () => {
 };
 
 const createArrayPhotos = () => Array.from({ length: NUMBERS_OF_PHOTOS }, createPhotoId);
-
-export { createArrayPhotos };
+const arrayPhotos = createArrayPhotos();
+export { arrayPhotos };
