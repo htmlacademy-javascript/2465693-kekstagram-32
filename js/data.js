@@ -91,11 +91,11 @@ const createComments = () => ({
 const generatePhotoId = createIdGenerator();
 
 const createPhotoId = () => {
-  const PhotoId = generatePhotoId();
+  const photoId = generatePhotoId();
   return {
-    id: PhotoId,
-    url: `photos/${PhotoId}.jpg`,
-    description: descriptionPhotos[PhotoId - 1],
+    id: photoId,
+    url: `photos/${photoId}.jpg`,
+    description: descriptionPhotos[photoId - 1],
     likes: getRandomInteger(CountsLikes.MIN, CountsLikes.MAX),
     comments: Array.from({ length: getRandomInteger(CountsComments.MIN, CountsComments.MAX) }, createComments),
   };
