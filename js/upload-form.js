@@ -10,23 +10,18 @@ const ErrorText = {
 
 const form = document.querySelector('.img-upload__form');
 
-const buttonSubmit = form.querySelector('#upload-submit');
-const cancelButton = form.querySelector('.img-upload__cancel');
+const cancelButtonElement = form.querySelector('.img-upload__cancel');
 const descriptionElement = form.querySelector('.text__description');
 const imageOverlayElement = form.querySelector('.img-upload__overlay');
 const inputUploadElement = form.querySelector('.img-upload__input');
 const hashtagInputElement = form.querySelector('.text__hashtags');
-const uploadPhoto = form.querySelector('.img-upload__preview img');
+const uploadPhotoElement = form.querySelector('.img-upload__preview img');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
 });
-
-if (!pristine.validate()) {
-  buttonSubmit.disabled = false;
-}
 
 const normalizeTags = (tagString) =>
   tagString
@@ -93,13 +88,13 @@ const openModal = () => {
 const onFileInputChange = () => {
   const file = inputUploadElement.files[0];
   if (file) {
-    uploadPhoto.src = URL.createObjectURL(file);
+    uploadPhotoElement.src = URL.createObjectURL(file);
   }
   openModal();
 };
 
 //обработчик при изменении формы
-form.addEventListener('change', onFileInputChange);
+inputUploadElement.addEventListener('change', onFileInputChange);
 
 //обработчик по нажатию мышкой на закрытие окна
-cancelButton.addEventListener('click', onCancelButtonClick);
+cancelButtonElement.addEventListener('click', onCancelButtonClick);
