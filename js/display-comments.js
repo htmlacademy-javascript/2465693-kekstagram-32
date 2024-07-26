@@ -6,7 +6,7 @@ const commentsLoaderElement = document.querySelector('.social__comments-loader')
 const commentShownCountElement = document.querySelector('.social__comment-shown-count');
 const commentTotalCountElement = document.querySelector('.social__comment-total-count');
 
-const startIndex = 0;
+let startIndex = 0;
 let endIndex = 0;
 let arrayComments = [];
 
@@ -22,7 +22,7 @@ const getComment = ({ avatar, name, message }) => {
 
 //создание списка комментариев
 const getListComments = () => {
-  endIndex += QTY_SHOW_COMMENTS;
+  endIndex = startIndex + QTY_SHOW_COMMENTS;
 
   if (endIndex >= arrayComments.length) {
     commentsLoaderElement.classList.add('hidden');
@@ -31,19 +31,20 @@ const getListComments = () => {
     commentsLoaderElement.classList.remove('hidden');
   }
 
-  const commentsFragmentElement = document.createDocumentFragment();
   arrayComments.slice(startIndex, endIndex).forEach((element) => {
     const newComment = getComment(element);
-    commentsFragmentElement.append(newComment);
+    commentListElement.append(newComment);
   });
-  commentListElement.innerHTML = '';
-  commentListElement.append(commentsFragmentElement);
+
+  startIndex += QTY_SHOW_COMMENTS;
+
   commentTotalCountElement.textContent = arrayComments.length;
   commentShownCountElement.textContent = endIndex;
 };
 
 const displayComments = (comments) => {
-  endIndex = 0;
+  commentListElement.innerHTML = '';
+  startIndex = 0;
   arrayComments = comments;
   getListComments();
   commentsLoaderElement.addEventListener('click', getListComments);
