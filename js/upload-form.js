@@ -1,5 +1,6 @@
 import { isEscapeKey } from './util.js';
-import { initialSlider } from './image-effect.js';
+import { defaultScale } from './image-scale.js';
+import { defaultEffect, initialSlider } from './image-effect.js';
 
 const HASHTAG_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COUNT_HASHTAG = 5;
@@ -17,39 +18,6 @@ const imageOverlayElement = form.querySelector('.img-upload__overlay');
 const inputUploadElement = form.querySelector('.img-upload__input');
 const hashtagInputElement = form.querySelector('.text__hashtags');
 const uploadPhotoElement = form.querySelector('.img-upload__preview img');
-
-//объявление для масштаба
-const STEP_SCALE = 25;
-const MIN_SCALE = 25;
-const MAX_SCALE = 100;
-const DEFAULT_SCALE = 100;
-
-const buttonPlusScaleElement = form.querySelector('.scale__control--bigger');
-const buttonMinusScaleElement = form.querySelector('.scale__control--smaller');
-const scaleValueElement = form.querySelector('.scale__control--value');
-
-const scaleImage = (scale) => {
-  scaleValueElement.value = `${scale}%`;
-  uploadPhotoElement.style.transform = `scale(${scale / 100})`;
-};
-
-const onScaleMinusClick = () => {
-  const scaleMinus = Math.max(parseInt(scaleValueElement.value, 10) - STEP_SCALE, MIN_SCALE);
-  scaleImage(scaleMinus);
-};
-
-const onScalePlusClick = () => {
-  const scalePlus = Math.min(parseInt(scaleValueElement.value, 10) + STEP_SCALE, MAX_SCALE);
-  scaleImage(scalePlus);
-};
-
-const defaultScale = () => {
-  scaleImage(DEFAULT_SCALE);
-};
-
-//обработчик масштабирования
-buttonMinusScaleElement.addEventListener('click', onScaleMinusClick);
-buttonPlusScaleElement.addEventListener('click', onScalePlusClick);
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -92,6 +60,7 @@ const closeModal = () => {
   form.reset();
   pristine.reset();
   defaultScale();
+  defaultEffect();
   imageOverlayElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentEscKeydown);
@@ -118,7 +87,6 @@ const openModal = () => {
   imageOverlayElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentEscKeydown);
-  //initialSlider();
   initialSlider();
 };
 
