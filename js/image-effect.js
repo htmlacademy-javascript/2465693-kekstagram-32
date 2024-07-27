@@ -21,7 +21,7 @@ const createSlider = ({ Min, Max, Step }) => {
   });
 };
 
-console.log(pattern;)
+console.log(pattern);
 
 // sliderElement.noUiSlider.on('update', () => {
 //   //effectValueElement.value = sliderElement.noUiSlider.get();
