@@ -1,4 +1,6 @@
 import { isEscapeKey } from './util.js';
+import { defaultScale } from './image-scale.js';
+import { defaultEffect, initialSlider } from './image-effect.js';
 
 const HASHTAG_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COUNT_HASHTAG = 5;
@@ -57,6 +59,8 @@ form.addEventListener('submit', (evt) => {
 const closeModal = () => {
   form.reset();
   pristine.reset();
+  defaultScale();
+  defaultEffect();
   imageOverlayElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentEscKeydown);
@@ -83,6 +87,7 @@ const openModal = () => {
   imageOverlayElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentEscKeydown);
+  initialSlider();
 };
 
 const onFileInputChange = () => {
