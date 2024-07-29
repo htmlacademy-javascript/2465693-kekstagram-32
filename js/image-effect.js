@@ -60,11 +60,7 @@ const updateSlider = ({ min, max, step }) => {
 
 //проверяем выбранный radio
 const checkSlider = () => {
-  if (currentEffect.name === 'original') {
-    sliderContainerElement.classList.add('hidden');
-  } else {
-    sliderContainerElement.classList.remove('hidden');
-  }
+  sliderContainerElement.classList.toggle('hidden', currentEffect.name === 'original');
   updateSlider(currentEffect);
 };
 

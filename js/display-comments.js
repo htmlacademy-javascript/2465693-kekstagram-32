@@ -22,14 +22,8 @@ const getComment = ({ avatar, name, message }) => {
 
 //создание списка комментариев
 const getListComments = () => {
-  endIndex = startIndex + QTY_SHOW_COMMENTS;
-
-  if (endIndex >= arrayComments.length) {
-    commentsLoaderElement.classList.add('hidden');
-    endIndex = arrayComments.length;
-  } else {
-    commentsLoaderElement.classList.remove('hidden');
-  }
+  endIndex = Math.min(startIndex + QTY_SHOW_COMMENTS, arrayComments.length);
+  commentsLoaderElement.classList.toggle('hidden', endIndex >= arrayComments.length);
 
   arrayComments.slice(startIndex, endIndex).forEach((element) => {
     const newComment = getComment(element);
