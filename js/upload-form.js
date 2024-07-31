@@ -1,6 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { defaultScale } from './image-scale.js';
 import { defaultEffect, initialSlider } from './image-effect.js';
+import { sendData } from './api.js';
 
 const HASHTAG_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COUNT_HASHTAG = 5;
@@ -18,6 +19,7 @@ const imageOverlayElement = form.querySelector('.img-upload__overlay');
 const inputUploadElement = form.querySelector('.img-upload__input');
 const hashtagInputElement = form.querySelector('.text__hashtags');
 const uploadPhotoElement = form.querySelector('.img-upload__preview img');
+const submitButtonElement = form.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -48,12 +50,6 @@ pristine.addValidator(hashtagInputElement, hasValidTags, ErrorText.INVALID_PATTE
 pristine.addValidator(hashtagInputElement, hasUniqueTags, ErrorText.NOT_UNIQUE, 1, true);
 
 pristine.addValidator(hashtagInputElement, hasValidCount, ErrorText.INVALID_COUNT, 3, true);
-
-form.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-});
 
 //закрытие модального окна
 const closeModal = () => {
@@ -88,6 +84,7 @@ const openModal = () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentEscKeydown);
   initialSlider();
+  submitButtonElement.disabled = false;
 };
 
 const onFileInputChange = () => {
@@ -98,8 +95,32 @@ const onFileInputChange = () => {
   openModal();
 };
 
+const setUserPhotoSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      submitButtonElement.disabled = true;
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .then(() => {
+          pristine.reset();
+          closeModal();
+          //вызов сообщения об успешной отправке
+        })
+        .catch(() => {
+          //onnerror
+        })
+        .finally((submitButtonElement.disabled = false));
+    }
+  });
+};
+
 //обработчик при изменении формы
 inputUploadElement.addEventListener('change', onFileInputChange);
 
 //обработчик по нажатию мышкой на закрытие окна
 cancelButtonElement.addEventListener('click', onCancelButtonClick);
+
+export { setUserPhotoSubmit, closeModal };
