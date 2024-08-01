@@ -2,6 +2,7 @@ import { isEscapeKey } from './util.js';
 import { defaultScale } from './image-scale.js';
 import { defaultEffect, initialSlider } from './image-effect.js';
 import { sendData } from './api.js';
+import { onErrorUpload, onSuccessUpload } from './messages.js';
 
 const HASHTAG_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_COUNT_HASHTAG = 5;
@@ -9,6 +10,11 @@ const ErrorText = {
   INVALID_COUNT: `превышено количество хэштегов, более: ${MAX_COUNT_HASHTAG}`,
   NOT_UNIQUE: 'хэштеги повторяются',
   INVALID_PATTERN: 'введён невалидный хэштег',
+};
+
+const SubmitButtonText = {
+  IDLE: 'Отправить',
+  SENDING: 'Отправляю...',
 };
 
 const form = document.querySelector('.img-upload__form');
@@ -95,24 +101,37 @@ const onFileInputChange = () => {
   openModal();
 };
 
+const blockSubmitButton = () => {
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = SubmitButtonText.IDLE;
+};
+
 const setUserPhotoSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const isValid = pristine.validate();
 
+    const isValid = pristine.validate();
     if (isValid) {
-      submitButtonElement.disabled = true;
-      sendData(new FormData(evt.target))
-        .then(onSuccess)
+      blockSubmitButton();
+      const formData = new FormData(evt.target);
+
+      sendData(formData)
+        .then(onSuccess())
         .then(() => {
-          pristine.reset();
-          closeModal();
-          //вызов сообщения об успешной отправке
+          onSuccessUpload();
         })
+        // .then(() => {
+        //   closeModal();
+        // })
         .catch(() => {
-          //onnerror
+          onErrorUpload();
         })
-        .finally((submitButtonElement.disabled = false));
+        .finally(unblockSubmitButton());
     }
   });
 };
@@ -123,4 +142,4 @@ inputUploadElement.addEventListener('change', onFileInputChange);
 //обработчик по нажатию мышкой на закрытие окна
 cancelButtonElement.addEventListener('click', onCancelButtonClick);
 
-export { setUserPhotoSubmit, closeModal };
+export { setUserPhotoSubmit, closeModal, openModal };
