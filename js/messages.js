@@ -37,18 +37,17 @@ function onBodyClick(evt) {
 
 function onEscKeydown(evt) {
   if (isEscapeKey(evt)) {
+    evt.preventDefault();
     onInfoUploadClose();
   }
 }
 
 //сообщение c результатом загрузки изображения
 const showUploadInfo = (templateElement, buttonClass) => {
-  const cloneUploadElement = templateElement.cloneNode(true);
-  body.append(cloneUploadElement);
-  const buttonCloseElement = document.querySelector(buttonClass);
-  buttonCloseElement.addEventListener('click', () => {
-    onInfoUploadClose();
-  });
+  const buttonCloseElement = templateElement.querySelector(buttonClass);
+
+  body.append(templateElement);
+  buttonCloseElement.addEventListener('click', onInfoUploadClose);
   document.addEventListener('keydown', onEscKeydown);
   body.addEventListener('click', onBodyClick);
 };

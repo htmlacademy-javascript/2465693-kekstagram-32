@@ -1,7 +1,6 @@
 import { renderingPicture } from './rendering-thumbnails.js';
 import { renderBigPhoto } from './rendering-full-photo.js';
 import './upload-form.js';
-import { closeModal, setUserPhotoSubmit } from './upload-form.js';
 import { getData } from './api.js';
 import { onErrorData } from './messages.js';
 
@@ -13,5 +12,3 @@ getData()
   .catch((err) => {
     onErrorData(err.message);
   });
-
-setUserPhotoSubmit(closeModal);

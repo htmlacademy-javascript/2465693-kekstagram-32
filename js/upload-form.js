@@ -21,6 +21,7 @@ const form = document.querySelector('.img-upload__form');
 
 const cancelButtonElement = form.querySelector('.img-upload__cancel');
 const descriptionElement = form.querySelector('.text__description');
+const effectsPreviewsElement = form.querySelectorAll('.effects__preview');
 const imageOverlayElement = form.querySelector('.img-upload__overlay');
 const inputUploadElement = form.querySelector('.img-upload__input');
 const hashtagInputElement = form.querySelector('.text__hashtags');
@@ -68,12 +69,14 @@ const closeModal = () => {
   document.removeEventListener('keydown', onDocumentEscKeydown);
 };
 
-//закрытие по ESC модального окна
+const isErrorMessageShown = () => Boolean(document.querySelector('.error'));
+
 const isTextFieldFocused = () =>
   document.activeElement === hashtagInputElement || document.activeElement === descriptionElement;
 
+//закрытие по ESC модального окна
 function onDocumentEscKeydown(evt) {
-  if (isEscapeKey(evt) && !isTextFieldFocused()) {
+  if (isEscapeKey(evt) && !isTextFieldFocused() && !isErrorMessageShown()) {
     evt.preventDefault();
     closeModal();
   }
@@ -97,18 +100,16 @@ const onFileInputChange = () => {
   const file = inputUploadElement.files[0];
   if (file) {
     uploadPhotoElement.src = URL.createObjectURL(file);
+    effectsPreviewsElement.forEach((preview) => {
+      preview.style.backgroundImage = `url('${uploadPhotoElement.src}')`;
+    });
   }
   openModal();
 };
 
-const blockSubmitButton = () => {
-  submitButtonElement.disabled = true;
-  submitButtonElement.textContent = SubmitButtonText.SENDING;
-};
-
-const unblockSubmitButton = () => {
-  submitButtonElement.disabled = false;
-  submitButtonElement.textContent = SubmitButtonText.IDLE;
+const toggleSubmitButton = (isDisabled) => {
+  submitButtonElement.disabled = isDisabled;
+  submitButtonElement.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
 };
 
 const setUserPhotoSubmit = (onSuccess) => {
@@ -117,21 +118,22 @@ const setUserPhotoSubmit = (onSuccess) => {
 
     const isValid = pristine.validate();
     if (isValid) {
-      blockSubmitButton();
+      toggleSubmitButton(true);
       const formData = new FormData(evt.target);
 
       sendData(formData)
-        .then(onSuccess())
         .then(() => {
           onSuccessUpload();
+          toggleSubmitButton(false);
         })
-        // .then(() => {
-        //   closeModal();
-        // })
+        .then(() => {
+          toggleSubmitButton(false);
+          onSuccess();
+        })
         .catch(() => {
+          toggleSubmitButton(false);
           onErrorUpload();
-        })
-        .finally(unblockSubmitButton());
+        });
     }
   });
 };
@@ -142,4 +144,6 @@ inputUploadElement.addEventListener('change', onFileInputChange);
 //обработчик по нажатию мышкой на закрытие окна
 cancelButtonElement.addEventListener('click', onCancelButtonClick);
 
-export { setUserPhotoSubmit, closeModal, openModal };
+setUserPhotoSubmit(closeModal);
+
+export { closeModal, openModal };
