@@ -2,7 +2,6 @@ import { isEscapeKey } from './util';
 
 const ERROR_TIMEOUT = 5000;
 
-const body = document.body;
 const dataErrorTemplateElement = document.querySelector('#data-error').content;
 const uploadErrorTemplateElement = document.querySelector('#error').content;
 const uploadSuccessTemplateElement = document.querySelector('#success').content;
@@ -10,7 +9,7 @@ const uploadSuccessTemplateElement = document.querySelector('#success').content;
 //сообщение при ошибке загрузки данных с сервера
 const onErrorData = (errorMessage) => {
   const cloneDataErrorElement = dataErrorTemplateElement.cloneNode(true);
-  body.append(cloneDataErrorElement);
+  document.body.append(cloneDataErrorElement);
   const dataErrorShownElement = document.querySelector('.data-error');
   const messageError = document.createElement('p');
   messageError.textContent = errorMessage;
@@ -25,7 +24,7 @@ const onInfoUploadClose = () => {
   const shownInfoUploadElement = document.querySelector('.success') || document.querySelector('.error');
   shownInfoUploadElement.remove();
   document.removeEventListener('keydown', onEscKeydown);
-  document.removeEventListener('click', onBodyClick);
+  document.body.removeEventListener('click', onBodyClick);
 };
 
 function onBodyClick(evt) {
@@ -46,10 +45,10 @@ function onEscKeydown(evt) {
 const showUploadInfo = (templateElement, buttonClass) => {
   const buttonCloseElement = templateElement.querySelector(buttonClass);
 
-  body.append(templateElement);
+  document.body.append(templateElement);
   buttonCloseElement.addEventListener('click', onInfoUploadClose);
   document.addEventListener('keydown', onEscKeydown);
-  body.addEventListener('click', onBodyClick);
+  document.body.addEventListener('click', onBodyClick);
 };
 
 const onSuccessUpload = () => {
