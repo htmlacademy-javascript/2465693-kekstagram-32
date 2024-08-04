@@ -21,6 +21,11 @@ const hashtagInputElement = form.querySelector('.text__hashtags');
 const uploadPhotoElement = form.querySelector('.img-upload__preview img');
 const submitButtonElement = form.querySelector('.img-upload__submit');
 
+const isErrorMessageShown = () => Boolean(document.querySelector('.error'));
+
+const isTextFieldFocused = () =>
+  document.activeElement === hashtagInputElement || document.activeElement === descriptionElement;
+
 //закрытие модального окна
 const closeModal = () => {
   form.reset();
@@ -31,11 +36,6 @@ const closeModal = () => {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentEscKeydown);
 };
-
-const isErrorMessageShown = () => Boolean(document.querySelector('.error'));
-
-const isTextFieldFocused = () =>
-  document.activeElement === hashtagInputElement || document.activeElement === descriptionElement;
 
 //закрытие по ESC модального окна
 function onDocumentEscKeydown(evt) {
@@ -59,6 +59,7 @@ const openModal = () => {
   submitButtonElement.disabled = false;
 };
 
+//получение данных о загружаемом фото
 const onFileInputChange = () => {
   const file = inputUploadElement.files[0];
   if (file) {
@@ -70,11 +71,13 @@ const onFileInputChange = () => {
   openModal();
 };
 
+//блокировка кнопки опубликовать
 const toggleSubmitButton = (isDisabled) => {
   submitButtonElement.disabled = isDisabled;
   submitButtonElement.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
 };
 
+//публикация фото
 const setUserPhotoSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -90,7 +93,6 @@ const setUserPhotoSubmit = (onSuccess) => {
           toggleSubmitButton(false);
         })
         .then(() => {
-          toggleSubmitButton(false);
           onSuccess();
         })
         .catch(() => {
