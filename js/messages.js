@@ -45,9 +45,10 @@ function onEscKeydown(evt) {
 
 //сообщение c результатом загрузки изображения
 const showUploadInfo = (templateElement, buttonClass) => {
-  const buttonCloseElement = templateElement.querySelector(buttonClass);
+  const cloneUploadElement = templateElement.cloneNode(true);
+  document.body.append(cloneUploadElement);
 
-  document.body.append(templateElement);
+  const buttonCloseElement = document.querySelector(buttonClass);
   buttonCloseElement.addEventListener('click', onInfoUploadClose);
   document.addEventListener('keydown', onEscKeydown);
   document.body.addEventListener('click', onBodyClick);

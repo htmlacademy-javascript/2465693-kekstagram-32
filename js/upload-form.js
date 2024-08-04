@@ -96,8 +96,8 @@ const setUserPhotoSubmit = (onSuccess) => {
           onSuccess();
         })
         .catch(() => {
-          toggleSubmitButton(false);
           onErrorUpload();
+          toggleSubmitButton(false);
         });
     }
   });
