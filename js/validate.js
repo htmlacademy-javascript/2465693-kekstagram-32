@@ -1,4 +1,8 @@
+import { sendData } from './api.js';
+import { onErrorUpload, onSuccessUpload } from './messages.js';
+
 const HASHTAG_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+
 const MAX_COUNT_HASHTAG = 5;
 const ErrorText = {
   INVALID_COUNT: `превышено количество хэштегов, более: ${MAX_COUNT_HASHTAG}`,
@@ -7,7 +11,13 @@ const ErrorText = {
 };
 
 const form = document.querySelector('.img-upload__form');
+const submitButtonElement = form.querySelector('.img-upload__submit');
 const hashtagInputElement = form.querySelector('.text__hashtags');
+
+const SubmitButtonText = {
+  IDLE: 'Отправить',
+  SENDING: 'Отправляю...',
+};
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -39,4 +49,36 @@ pristine.addValidator(hashtagInputElement, hasUniqueTags, ErrorText.NOT_UNIQUE, 
 
 pristine.addValidator(hashtagInputElement, hasValidCount, ErrorText.INVALID_COUNT, 3, true);
 
-export { pristine };
+//блокировка кнопки опубликовать
+const toggleSubmitButton = (isDisabled) => {
+  submitButtonElement.disabled = isDisabled;
+  submitButtonElement.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
+};
+
+//проверка и публикация фото
+const setUserPhotoSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      toggleSubmitButton(true);
+      const formData = new FormData(evt.target);
+
+      sendData(formData)
+        .then(() => {
+          onSuccessUpload();
+          toggleSubmitButton(false);
+        })
+        .then(() => {
+          onSuccess();
+        })
+        .catch(() => {
+          onErrorUpload();
+          toggleSubmitButton(false);
+        });
+    }
+  });
+};
+
+export { pristine, setUserPhotoSubmit };

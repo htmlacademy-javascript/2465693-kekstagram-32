@@ -2,13 +2,6 @@ import { pristine } from './validate.js';
 import { isEscapeKey } from './util.js';
 import { defaultScale } from './image-scale.js';
 import { defaultEffect, initialSlider } from './image-effect.js';
-import { sendData } from './api.js';
-import { onErrorUpload, onSuccessUpload } from './messages.js';
-
-const SubmitButtonText = {
-  IDLE: 'Отправить',
-  SENDING: 'Отправляю...',
-};
 
 const form = document.querySelector('.img-upload__form');
 
@@ -71,44 +64,10 @@ const onFileInputChange = () => {
   openModal();
 };
 
-//блокировка кнопки опубликовать
-const toggleSubmitButton = (isDisabled) => {
-  submitButtonElement.disabled = isDisabled;
-  submitButtonElement.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
-};
-
-//публикация фото
-const setUserPhotoSubmit = (onSuccess) => {
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    const isValid = pristine.validate();
-    if (isValid) {
-      toggleSubmitButton(true);
-      const formData = new FormData(evt.target);
-
-      sendData(formData)
-        .then(() => {
-          onSuccessUpload();
-          toggleSubmitButton(false);
-        })
-        .then(() => {
-          onSuccess();
-        })
-        .catch(() => {
-          onErrorUpload();
-          toggleSubmitButton(false);
-        });
-    }
-  });
-};
-
 //обработчик при изменении формы
 inputUploadElement.addEventListener('change', onFileInputChange);
 
 //обработчик по нажатию мышкой на закрытие окна
 cancelButtonElement.addEventListener('click', onCancelButtonClick);
-
-setUserPhotoSubmit(closeModal);
 
 export { closeModal, openModal };

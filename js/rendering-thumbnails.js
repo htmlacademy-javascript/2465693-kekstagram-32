@@ -1,3 +1,5 @@
+import { renderBigPhoto } from './rendering-full-photo';
+
 const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
@@ -16,6 +18,7 @@ const createPhoto = (picture) => {
 
 //отрисовка фотографий
 const renderingPicture = (arrayPictures) => {
+  renderBigPhoto(arrayPictures);
   arrayPictures.forEach((picture) => {
     const photoElement = createPhoto(picture);
     photosElement.append(photoElement);
