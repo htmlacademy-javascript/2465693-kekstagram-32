@@ -1,5 +1,5 @@
-import { sendData } from './api.js';
 import { onErrorUpload, onSuccessUpload } from './messages.js';
+import { sendData } from './api.js';
 
 const HASHTAG_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 
@@ -10,16 +10,16 @@ const ErrorText = {
   INVALID_PATTERN: 'введён невалидный хэштег',
 };
 
-const form = document.querySelector('.img-upload__form');
-const submitButtonElement = form.querySelector('.img-upload__submit');
-const hashtagInputElement = form.querySelector('.text__hashtags');
+const formElement = document.querySelector('.img-upload__form');
+const submitButtonElement = formElement.querySelector('.img-upload__submit');
+const hashtagInputElement = formElement.querySelector('.text__hashtags');
 
 const SubmitButtonText = {
   IDLE: 'Отправить',
   SENDING: 'Отправляю...',
 };
 
-const pristine = new Pristine(form, {
+const pristine = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
@@ -57,7 +57,7 @@ const toggleSubmitButton = (isDisabled) => {
 
 //проверка и публикация фото
 const setUserPhotoSubmit = (onSuccess) => {
-  form.addEventListener('submit', (evt) => {
+  formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const isValid = pristine.validate();

@@ -1,14 +1,13 @@
-const form = document.querySelector('.img-upload__form');
-
 const STEP_SCALE = 25;
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 const DEFAULT_SCALE = 100;
 
-const buttonPlusScaleElement = form.querySelector('.scale__control--bigger');
-const buttonMinusScaleElement = form.querySelector('.scale__control--smaller');
-const scaleValueElement = form.querySelector('.scale__control--value');
-const uploadPhotoElement = form.querySelector('.img-upload__preview img');
+const formElement = document.querySelector('.img-upload__form');
+const buttonPlusScaleElement = formElement.querySelector('.scale__control--bigger');
+const buttonMinusScaleElement = formElement.querySelector('.scale__control--smaller');
+const scaleValueElement = formElement.querySelector('.scale__control--value');
+const uploadPhotoElement = formElement.querySelector('.img-upload__preview img');
 
 const scaleImage = (scale) => {
   scaleValueElement.value = `${scale}%`;

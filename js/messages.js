@@ -10,8 +10,10 @@ const uploadSuccessTemplateElement = document.querySelector('#success').content;
 const onErrorData = (errorMessage) => {
   const cloneDataErrorElement = dataErrorTemplateElement.cloneNode(true);
   document.body.append(cloneDataErrorElement);
+
   const dataErrorShownElement = document.querySelector('.data-error');
   const messageError = document.createElement('p');
+
   messageError.textContent = errorMessage;
   dataErrorShownElement.append(messageError);
   setTimeout(() => {

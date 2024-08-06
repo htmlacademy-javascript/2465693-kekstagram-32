@@ -5,13 +5,13 @@ const ORIGINAL = {
   step: 1,
 };
 
-const form = document.querySelector('.img-upload__form');
+const formElement = document.querySelector('.img-upload__form');
 
-const buttonEffectElement = form.querySelector('.img-upload__effects');
-const effectValueElement = form.querySelector('.effect-level__value');
-const sliderContainerElement = form.querySelector('.img-upload__effect-level');
-const sliderElement = form.querySelector('.effect-level__slider');
-const uploadPhotoElement = form.querySelector('.img-upload__preview img');
+const buttonEffectElement = formElement.querySelector('.img-upload__effects');
+const effectValueElement = formElement.querySelector('.effect-level__value');
+const sliderContainerElement = formElement.querySelector('.img-upload__effect-level');
+const sliderElement = formElement.querySelector('.effect-level__slider');
+const uploadPhotoElement = formElement.querySelector('.img-upload__preview img');
 let currentEffect = ORIGINAL;
 
 //применяем фильтр к изображению

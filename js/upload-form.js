@@ -3,16 +3,16 @@ import { isEscapeKey } from './util.js';
 import { defaultScale } from './image-scale.js';
 import { defaultEffect, initialSlider } from './image-effect.js';
 
-const form = document.querySelector('.img-upload__form');
+const formElement = document.querySelector('.img-upload__form');
 
-const cancelButtonElement = form.querySelector('.img-upload__cancel');
-const descriptionElement = form.querySelector('.text__description');
-const effectsPreviewsElement = form.querySelectorAll('.effects__preview');
-const imageOverlayElement = form.querySelector('.img-upload__overlay');
-const inputUploadElement = form.querySelector('.img-upload__input');
-const hashtagInputElement = form.querySelector('.text__hashtags');
-const uploadPhotoElement = form.querySelector('.img-upload__preview img');
-const submitButtonElement = form.querySelector('.img-upload__submit');
+const cancelButtonElement = formElement.querySelector('.img-upload__cancel');
+const descriptionElement = formElement.querySelector('.text__description');
+const effectsPreviewsElement = formElement.querySelectorAll('.effects__preview');
+const imageOverlayElement = formElement.querySelector('.img-upload__overlay');
+const inputUploadElement = formElement.querySelector('.img-upload__input');
+const hashtagInputElement = formElement.querySelector('.text__hashtags');
+const uploadPhotoElement = formElement.querySelector('.img-upload__preview img');
+const submitButtonElement = formElement.querySelector('.img-upload__submit');
 
 const isErrorMessageShown = () => Boolean(document.querySelector('.error'));
 
@@ -21,7 +21,7 @@ const isTextFieldFocused = () =>
 
 //закрытие модального окна
 const closeModal = () => {
-  form.reset();
+  formElement.reset();
   pristine.reset();
   defaultScale();
   defaultEffect();

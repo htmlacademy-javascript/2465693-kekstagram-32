@@ -2,7 +2,7 @@ import { debounce } from './util.js';
 import { renderingPicture } from './rendering-thumbnails.js';
 
 const RANDOM_PHOTO_COUNT = 10;
-const RERENDER_DELAY = 400;
+const RERENDER_DELAY = 500;
 
 const Filter = {
   DEFAULT: 'filter-default',
@@ -11,13 +11,7 @@ const Filter = {
 };
 
 const imageFilterElement = document.querySelector('.img-filters');
-const pictureElements = () => document.querySelectorAll('.picture');
 let photos = [];
-
-//очистка фотографий
-const removePictures = () => {
-  pictureElements().forEach((picture) => picture.remove());
-};
 
 //сортировка
 const sortComments = (firstPhoto, secondPhoto) => secondPhoto.comments.length - firstPhoto.comments.length;
@@ -45,9 +39,9 @@ const onChangeFilter = (evt) => {
     default:
       arrayFilterPhotos = [...photos];
   }
-  removePictures();
-  const debounceRender = debounce(renderingPicture, RERENDER_DELAY);
-  debounceRender(arrayFilterPhotos);
+
+  const debounceRender = debounce(() => renderingPicture(arrayFilterPhotos), RERENDER_DELAY);
+  debounceRender();
 };
 
 //инициализация фильтров
