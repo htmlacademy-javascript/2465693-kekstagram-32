@@ -23,8 +23,8 @@ const createPhoto = (picture) => {
 
 //отрисовка фотографий
 const renderingPicture = (arrayPictures) => {
-  renderBigPhoto(arrayPictures);
   removePictures();
+  renderBigPhoto(arrayPictures);
   arrayPictures.forEach((picture) => {
     const photoElement = createPhoto(picture);
     photosElement.append(photoElement);
