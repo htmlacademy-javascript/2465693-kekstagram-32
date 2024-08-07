@@ -47,7 +47,7 @@ const openModal = () => {
   initialSlider();
   submitButtonElement.disabled = false;
 };
-//задание module12-task2
+
 const onFileInputChange = () => {
   const file = inputUploadElement.files[0];
   if (file && isValidType(file)) {
