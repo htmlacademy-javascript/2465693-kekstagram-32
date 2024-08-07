@@ -5,16 +5,15 @@ const ORIGINAL = {
   step: 1,
 };
 
-const form = document.querySelector('.img-upload__form');
+const formElement = document.querySelector('.img-upload__form');
 
-const buttonEffectElement = form.querySelector('.img-upload__effects');
-const effectValueElement = form.querySelector('.effect-level__value');
-const sliderContainerElement = form.querySelector('.img-upload__effect-level');
-const sliderElement = form.querySelector('.effect-level__slider');
-const uploadPhotoElement = form.querySelector('.img-upload__preview img');
+const buttonEffectElement = formElement.querySelector('.img-upload__effects');
+const effectValueElement = formElement.querySelector('.effect-level__value');
+const sliderContainerElement = formElement.querySelector('.img-upload__effect-level');
+const sliderElement = formElement.querySelector('.effect-level__slider');
+const uploadPhotoElement = formElement.querySelector('.img-upload__preview img');
 let currentEffect = ORIGINAL;
 
-//применяем фильтр к изображению
 const applyEffect = () => {
   const value = effectValueElement.value;
   if (currentEffect.name === 'original') {
@@ -24,7 +23,6 @@ const applyEffect = () => {
   uploadPhotoElement.style.filter = `${currentEffect.filter}(${value}${currentEffect.measurement})`;
 };
 
-//создаёт слайдер на форме
 const createSlider = ({ min, max, step }) => {
   if (typeof sliderElement.noUiSlider === 'undefined') {
     noUiSlider.create(sliderElement, {
@@ -49,7 +47,6 @@ const createSlider = ({ min, max, step }) => {
   sliderContainerElement.classList.add('hidden');
 };
 
-//обновляет значения слайдера после выбора эффекта
 const updateSlider = ({ min, max, step }) => {
   sliderElement.noUiSlider.updateOptions({
     range: {
@@ -61,7 +58,6 @@ const updateSlider = ({ min, max, step }) => {
   });
 };
 
-//проверяем выбранный radio
 const checkSlider = () => {
   sliderContainerElement.classList.toggle('hidden', currentEffect.name === 'original');
   updateSlider(currentEffect);
@@ -74,7 +70,6 @@ const defaultEffect = () => {
   sliderElement.noUiSlider.destroy();
 };
 
-//задаем по выбору radio исходные данные для слайдера
 const onChangeEffect = (evt) => {
   switch (evt.target.value) {
     case 'none':
@@ -134,7 +129,6 @@ const onChangeEffect = (evt) => {
   checkSlider();
 };
 
-//инициализация слайдера
 const initialSlider = () => {
   createSlider(currentEffect);
   buttonEffectElement.addEventListener('change', onChangeEffect);

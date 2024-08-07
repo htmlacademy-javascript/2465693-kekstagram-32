@@ -1,9 +1,15 @@
+import { renderBigPhoto } from './rendering-full-photo';
+
 const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
-const container = document.querySelector('.pictures');
+const containerElement = document.querySelector('.pictures');
 
 const photosElement = document.createDocumentFragment();
 
-//получение данных для одной фотографии
+const removePictures = () => {
+  const pictureElements = () => document.querySelectorAll('.picture');
+  pictureElements().forEach((picture) => picture.remove());
+};
+
 const createPhoto = (picture) => {
   const photoElement = pictureTemplateElement.cloneNode(true);
   photoElement.querySelector('.picture__img').src = picture.url;
@@ -14,13 +20,14 @@ const createPhoto = (picture) => {
   return photoElement;
 };
 
-//отрисовка фотографий
 const renderingPicture = (arrayPictures) => {
+  removePictures();
+  renderBigPhoto(arrayPictures);
   arrayPictures.forEach((picture) => {
     const photoElement = createPhoto(picture);
     photosElement.append(photoElement);
   });
-  container.append(photosElement);
+  containerElement.append(photosElement);
 };
 
 export { renderingPicture };
