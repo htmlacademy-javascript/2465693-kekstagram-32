@@ -1,4 +1,4 @@
-import { pristine } from './validate.js';
+import { pristine, isValidType } from './validate.js';
 import { isEscapeKey } from './util.js';
 import { defaultScale } from './image-scale.js';
 import { defaultEffect, initialSlider } from './image-effect.js';
@@ -55,7 +55,7 @@ const openModal = () => {
 //получение данных о загружаемом фото
 const onFileInputChange = () => {
   const file = inputUploadElement.files[0];
-  if (file) {
+  if (file && isValidType(file)) {
     uploadPhotoElement.src = URL.createObjectURL(file);
     effectsPreviewsElement.forEach((preview) => {
       preview.style.backgroundImage = `url('${uploadPhotoElement.src}')`;

@@ -2,6 +2,7 @@ import { onErrorUpload, onSuccessUpload } from './messages.js';
 import { sendData } from './api.js';
 
 const HASHTAG_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const MAX_COUNT_HASHTAG = 5;
 const ErrorText = {
@@ -49,6 +50,12 @@ pristine.addValidator(hashtagInputElement, hasUniqueTags, ErrorText.NOT_UNIQUE, 
 
 pristine.addValidator(hashtagInputElement, hasValidCount, ErrorText.INVALID_COUNT, 3, true);
 
+//проверка типов файла
+const isValidType = (file) => {
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPES.some((it) => fileName.endsWith(it));
+};
+
 //блокировка кнопки опубликовать
 const toggleSubmitButton = (isDisabled) => {
   submitButtonElement.disabled = isDisabled;
@@ -81,4 +88,4 @@ const setUserPhotoSubmit = (onSuccess) => {
   });
 };
 
-export { pristine, setUserPhotoSubmit };
+export { isValidType, pristine, setUserPhotoSubmit };
