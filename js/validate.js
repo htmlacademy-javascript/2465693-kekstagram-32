@@ -32,16 +32,13 @@ const normalizeTags = (tagString) =>
     .split(' ')
     .filter((tag) => Boolean(tag.length));
 
-//проверка хэштегов c regexp
 const hasValidTags = (value) => normalizeTags(value).every((tag) => HASHTAG_SYMBOLS.test(tag));
 
-//проверка хэштегов на уникалность
 const hasUniqueTags = (value) => {
   const lowerCaseTags = normalizeTags(value).map((tag) => tag.toLowerCase());
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
-//проверка количества хэштегов
 const hasValidCount = (value) => normalizeTags(value).length <= MAX_COUNT_HASHTAG;
 
 pristine.addValidator(hashtagInputElement, hasValidTags, ErrorText.INVALID_PATTERN, 2, true);
@@ -50,19 +47,16 @@ pristine.addValidator(hashtagInputElement, hasUniqueTags, ErrorText.NOT_UNIQUE, 
 
 pristine.addValidator(hashtagInputElement, hasValidCount, ErrorText.INVALID_COUNT, 3, true);
 
-//проверка типов файла
 const isValidType = (file) => {
   const fileName = file.name.toLowerCase();
   return FILE_TYPES.some((it) => fileName.endsWith(it));
 };
 
-//блокировка кнопки опубликовать
 const toggleSubmitButton = (isDisabled) => {
   submitButtonElement.disabled = isDisabled;
   submitButtonElement.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
 };
 
-//проверка и публикация фото
 const setUserPhotoSubmit = (onSuccess) => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();

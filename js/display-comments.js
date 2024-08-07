@@ -10,17 +10,15 @@ let startIndex = 0;
 let endIndex = 0;
 let arrayComments = [];
 
-//создание одного комментария для списка
 const getComment = ({ avatar, name, message }) => {
-  const comment = commentElement.cloneNode(true);
-  const socialPictureElement = comment.querySelector('.social__picture');
+  const cloneCommentElement = commentElement.cloneNode(true);
+  const socialPictureElement = cloneCommentElement.querySelector('.social__picture');
   socialPictureElement.src = avatar;
   socialPictureElement.alt = name;
-  comment.querySelector('.social__text').textContent = message;
-  return comment;
+  cloneCommentElement.querySelector('.social__text').textContent = message;
+  return cloneCommentElement;
 };
 
-//создание списка комментариев
 const getListComments = () => {
   endIndex = Math.min(startIndex + QTY_SHOW_COMMENTS, arrayComments.length);
   commentsLoaderElement.classList.toggle('hidden', endIndex >= arrayComments.length);

@@ -6,7 +6,6 @@ const dataErrorTemplateElement = document.querySelector('#data-error').content;
 const uploadErrorTemplateElement = document.querySelector('#error').content;
 const uploadSuccessTemplateElement = document.querySelector('#success').content;
 
-//сообщение при ошибке загрузки данных с сервера
 const onErrorData = (errorMessage) => {
   const cloneDataErrorElement = dataErrorTemplateElement.cloneNode(true);
   document.body.append(cloneDataErrorElement);
@@ -21,7 +20,6 @@ const onErrorData = (errorMessage) => {
   }, ERROR_TIMEOUT);
 };
 
-//закрытие окна сообщения
 const onInfoUploadClose = () => {
   const shownInfoUploadElement = document.querySelector('.success') || document.querySelector('.error');
   shownInfoUploadElement.remove();
@@ -29,7 +27,6 @@ const onInfoUploadClose = () => {
   document.body.removeEventListener('click', onBodyClick);
 };
 
-//закрытие окна по клику на любом месте вне окна
 function onBodyClick(evt) {
   if (evt.target.closest('.success__inner') || evt.target.closest('.error__inner')) {
     return;
@@ -37,7 +34,6 @@ function onBodyClick(evt) {
   onInfoUploadClose();
 }
 
-//закрытие окна по Esc
 function onEscKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -45,7 +41,6 @@ function onEscKeydown(evt) {
   }
 }
 
-//сообщение c результатом загрузки изображения
 const showUploadInfo = (templateElement, buttonClass) => {
   const cloneUploadElement = templateElement.cloneNode(true);
   document.body.append(cloneUploadElement);
@@ -56,12 +51,10 @@ const showUploadInfo = (templateElement, buttonClass) => {
   document.body.addEventListener('click', onBodyClick);
 };
 
-//сообщение при успешной загрузке
 const onSuccessUpload = () => {
   showUploadInfo(uploadSuccessTemplateElement, '.success__button');
 };
 
-//сообщение при ошибке загрузки
 const onErrorUpload = () => {
   showUploadInfo(uploadErrorTemplateElement, '.error__button');
 };

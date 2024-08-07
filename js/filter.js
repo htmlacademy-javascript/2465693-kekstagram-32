@@ -13,10 +13,8 @@ const Filter = {
 const imageFilterElement = document.querySelector('.img-filters');
 let photos = [];
 
-//сортировка
 const sortComments = (firstPhoto, secondPhoto) => secondPhoto.comments.length - firstPhoto.comments.length;
 
-//задаем по выбору кнопки данные для фильтров
 const onChangeFilter = (evt) => {
   let arrayFilterPhotos = photos;
   const activeButtonElement = document.querySelector('.img-filters__button--active');
@@ -44,7 +42,6 @@ const onChangeFilter = (evt) => {
   debounceRender();
 };
 
-//инициализация фильтров
 const initializeFilter = (arrayPhotos) => {
   imageFilterElement.classList.remove('img-filters--inactive');
   imageFilterElement.addEventListener('click', onChangeFilter);

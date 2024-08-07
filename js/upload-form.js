@@ -1,4 +1,4 @@
-import { pristine, isValidType } from './validate.js';
+import { isValidType, pristine } from './validate.js';
 import { isEscapeKey } from './util.js';
 import { defaultScale } from './image-scale.js';
 import { defaultEffect, initialSlider } from './image-effect.js';
@@ -19,7 +19,6 @@ const isErrorMessageShown = () => Boolean(document.querySelector('.error'));
 const isTextFieldFocused = () =>
   document.activeElement === hashtagInputElement || document.activeElement === descriptionElement;
 
-//закрытие модального окна
 const closeModal = () => {
   formElement.reset();
   pristine.reset();
@@ -30,7 +29,6 @@ const closeModal = () => {
   document.removeEventListener('keydown', onDocumentEscKeydown);
 };
 
-//закрытие по ESC модального окна
 function onDocumentEscKeydown(evt) {
   if (isEscapeKey(evt) && !isTextFieldFocused() && !isErrorMessageShown()) {
     evt.preventDefault();
@@ -38,12 +36,10 @@ function onDocumentEscKeydown(evt) {
   }
 }
 
-//закрытие по крестику
 const onCancelButtonClick = () => {
   closeModal();
 };
 
-//открытие модального окна
 const openModal = () => {
   imageOverlayElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -51,8 +47,7 @@ const openModal = () => {
   initialSlider();
   submitButtonElement.disabled = false;
 };
-
-//получение данных о загружаемом фото
+//задание module12-task2
 const onFileInputChange = () => {
   const file = inputUploadElement.files[0];
   if (file && isValidType(file)) {
@@ -64,10 +59,8 @@ const onFileInputChange = () => {
   openModal();
 };
 
-//обработчик при изменении формы
 inputUploadElement.addEventListener('change', onFileInputChange);
 
-//обработчик по нажатию мышкой на закрытие окна
 cancelButtonElement.addEventListener('click', onCancelButtonClick);
 
 export { closeModal, openModal };

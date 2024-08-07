@@ -28,7 +28,6 @@ const defaultScale = () => {
   scaleImage(DEFAULT_SCALE);
 };
 
-//обработчик масштабирования
 buttonMinusScaleElement.addEventListener('click', onScaleMinusClick);
 buttonPlusScaleElement.addEventListener('click', onScalePlusClick);
 

@@ -10,7 +10,6 @@ const removePictures = () => {
   pictureElements().forEach((picture) => picture.remove());
 };
 
-//получение данных для одной фотографии
 const createPhoto = (picture) => {
   const photoElement = pictureTemplateElement.cloneNode(true);
   photoElement.querySelector('.picture__img').src = picture.url;
@@ -21,7 +20,6 @@ const createPhoto = (picture) => {
   return photoElement;
 };
 
-//отрисовка фотографий
 const renderingPicture = (arrayPictures) => {
   removePictures();
   renderBigPhoto(arrayPictures);
